@@ -1,7 +1,8 @@
+class FriendController {
+  async create(ctx, next) {}
 
-
-class FriendController{
-
+  async list(ctx, next) {}
+  async deleted(ctx, next) {}
 }
 
-module.exports = new FriendController()
+module.exports = new FriendController();

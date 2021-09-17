@@ -4,7 +4,9 @@ const Router=require('koa-router')
 const friendRouter=new Router()
 
 const {
-	create
+	create,
+	list,
+	deleted
 }=require('../controller/friend')
 
 //后台添加友链
