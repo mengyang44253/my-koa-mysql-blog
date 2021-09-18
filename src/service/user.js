@@ -38,6 +38,14 @@ class UserService {
     const [res] = await connection.execute(statement, [address,time,user_id]);
     return res
   }
+
+  //获取用户信息
+  async getUserInfoById(id){
+    console.log(id)
+    const statement=`SELECT * FROM user WHERE user_id=?`
+    const [res]=await connection.execute(statement,[id])
+    return res[0]
+  }
 }
 
 module.exports=new UserService()

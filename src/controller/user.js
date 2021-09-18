@@ -75,7 +75,13 @@ class UserController {
 	}
 
 	async getUserInfoById(ctx,next){
-
+		const query=ctx.request.query
+		console.log(query)
+		const res = await UserService.getUserInfoById(query.user_id)
+		ctx.body={
+			success:true,
+			data:res
+		}
 	}
 
 	async checkPassword(ctx,next){
