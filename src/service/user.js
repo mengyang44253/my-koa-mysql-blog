@@ -32,19 +32,51 @@ class UserService {
   }
 
   //更新用户登陆地
-  async updateUserInfo(user_id,time,address) {
+  async updateUserInfo(user_id, time, address) {
     const statement = `UPDATE user SET last_login_address=?,last_login_time=? WHERE user_id=?`;
     console.log(statement);
-    const [res] = await connection.execute(statement, [address,time,user_id]);
-    return res
+    const [res] = await connection.execute(statement, [address, time, user_id]);
+    return res;
   }
 
   //获取用户信息
-  async getUserInfoById(id){
-    console.log(id)
-    const statement=`SELECT * FROM user WHERE user_id=?`
-    const [res]=await connection.execute(statement,[id])
-    return res[0]
+  async getUserInfoById(id) {
+    console.log(id);
+    const statement = `SELECT * FROM user WHERE user_id=?`;
+    const [res] = await connection.execute(statement, [id]);
+    return res[0];
+  }
+  //更新用户信息
+  async changeUserInfo(query) {
+    const { name, avatar, birth, phone, country, city, gender, id } = query;
+    let statement = `UPDATE user SET name='${name}'`;
+    if (avatar) {
+      statement += `,avatar='${avatar}'`;
+    }
+    if (birth) {
+      statement += `,birth=${birth}`;
+    }
+    if (phone) {
+      statement += `,phone=${phone}`;
+    }
+    if (country) {
+      statement += `,country=${country}`;
+    }
+    if (city) {
+      statement += `,city=${Number(city)}`;
+    }
+    if (gender) {
+      statement += `,gender=${Number(gender)}`;
+    }
+    statement += ` WHERE user_id =${id}`;
+    const [res] = await connection.execute(statement);
+    return res;
+  }
+  //密码是否正确
+  async checkPassword(user_id) {
+    const statement = `SELECT * FROM login WHERE id=?`
+    const [res] = await connection.execute(statement, [user_id])
+    return res
   }
 }
 

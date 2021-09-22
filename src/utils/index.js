@@ -56,6 +56,7 @@ function clearParams(data) {
   return obj;
 }
 
+
 module.exports = {
   encrypt,
   decrypt,

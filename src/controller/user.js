@@ -4,7 +4,8 @@ const dayjs=require('dayjs')
 const jwt=require('jsonwebtoken')
 
 const {
-	decrypt
+	decrypt,
+	clearParams
 } =require('../utils')
 
 const { PRIVATE_KEY } = require("../config/envConstant");
@@ -85,18 +86,52 @@ class UserController {
 	}
 
 	async checkPassword(ctx,next){
-
+		const query=ctx.request.query
+		const res = await UserService.checkPassword(query.user_id)
+		//密码不一致
+		if (decrypt(res.password) !== query.oldPassword) {
+			ctx.body = {
+				success: false,
+				message:'密码错误'
+			}
+		} else {
+			ctx.body = {
+        success: true
+      }
+		}
 	}
 
 	async repeatPassword(ctx,next){
-
+		const query = ctx.request.query
+		const res = await userService.checkPassword(query.user_id)
+		if (decrypt(res.password) === query.newPassword) {
+			ctx.body = {
+				success: false,
+				message:'密码不能和以前的一样'
+			}
+		} else {
+			ctx.body = {
+				success:true
+			}
+		}
 	}
 
 	async updatePassword(ctx,next){
-
+		const query = ctx.request.body
+		const res = await UserService.changePassword(query.user_id, query.newPassword)
+		ctx.body = {
+			success:true
+		}
 	}
 
 	async updateUserInfo(ctx,next){
+		const query=ctx.request.body
+		let data=clearParams(query)
+		const res = await UserService.changeUserInfo(data);
+		ctx.body={
+			success:true,
+			data:res
+		}
 
 	}
 }
