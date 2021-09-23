@@ -27,8 +27,7 @@ class UserController {
 		//1.获取用户名
 		const {name,password} =ctx.request.body
 		//判断用户是否存在
-		const res=await UserService.getUserByName(name)
-		console.log(res,'用户是否存在');
+		const res = await UserService.getUserByName(name)
 		if (!res.length) {
       ctx.body = {
         success: false,
@@ -37,9 +36,6 @@ class UserController {
 			return
     }
 		//判断密码和数据库中的是否一致
-		console.log(decrypt(password));
-		console.log(decrypt(res[0].password));
-		console.log(decrypt(password) !== decrypt(res[0].password));
 		if(decrypt(password)!==decrypt(res[0].password)){
 			ctx.body = {
         success: false,
@@ -86,7 +82,7 @@ class UserController {
 	}
 
 	async checkPassword(ctx,next){
-		const query=ctx.request.query
+		const query = ctx.request.query
 		const res = await UserService.checkPassword(query.user_id)
 		//密码不一致
 		if (decrypt(res.password) !== query.oldPassword) {
@@ -103,7 +99,8 @@ class UserController {
 
 	async repeatPassword(ctx,next){
 		const query = ctx.request.query
-		const res = await userService.checkPassword(query.user_id)
+		const res = await UserService.checkPassword(query.user_id)
+		console.log(res)
 		if (decrypt(res.password) === query.newPassword) {
 			ctx.body = {
 				success: false,
@@ -117,8 +114,13 @@ class UserController {
 	}
 
 	async updatePassword(ctx,next){
+		console.log(1111111111111)
 		const query = ctx.request.body
+
+		console.log(query)
+
 		const res = await UserService.changePassword(query.user_id, query.newPassword)
+		console.log(res)
 		ctx.body = {
 			success:true
 		}

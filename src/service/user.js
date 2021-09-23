@@ -76,7 +76,19 @@ class UserService {
   async checkPassword(user_id) {
     const statement = `SELECT * FROM login WHERE id=?`
     const [res] = await connection.execute(statement, [user_id])
+    console.log(res)
+    return res[0]
+  }
+  //更新密码
+  async changePassword(user_id, password) {
+    try {
+      const statement = `UPDATE login SET password='${password}' WHERE id=${user_id} `
+    const [res] = await connection.execute(statement)
     return res
+    } catch (error) {
+      console.log(error)
+    }
+    
   }
 }
 
