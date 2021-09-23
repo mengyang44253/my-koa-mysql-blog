@@ -20,6 +20,14 @@ class SystemService {
     const { pagination,start,limit,name}=query
     let statement=`SELECT`
   }
+
+  async editRole() {
+    
+  }
+
+  async editAuth() {
+    
+  }
 }
 
 module.exports = new SystemService();

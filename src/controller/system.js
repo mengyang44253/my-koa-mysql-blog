@@ -29,6 +29,59 @@ class SystemController{
     }
     
   }
+
+  async editRole(ctx, next) {
+    const query = ctx.request.body
+    
+
+
+    ctx.body = {
+      
+    }
+  }
+
+  async deleteRole(ctx,next) {
+    
+
+
+    ctx.body = {
+      
+    }
+  }
+
+  async editAuth(ctx, next) {
+    
+
+    ctx.body = {
+      
+    }
+  }
+
+  async userList(ctx, next) {
+    
+
+
+    ctx.body = {
+      
+    }
+  }
+
+  async userRole(ctx, next) {
+    
+
+
+    ctx.body = {
+      
+    }
+  }
+
+  async deleteUser(ctx, next) {
+    
+
+    ctx.body = {
+      
+    }
+  }
 }
 
 module.exports=new SystemController
