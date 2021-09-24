@@ -9,6 +9,8 @@ const {
   addRole,
   editRole,
   deleteRole,
+  getAuth,
+  editAuth,
   userList,
   userRole,
   deleteUser
@@ -23,8 +25,11 @@ systemRouter.post("/admin/sys/role/addRole", addRole)
 //编辑角色
 systemRouter.post("/admin/sys/role/editRole", editRole)
 
-//删除角色
-systemRouter.post("/admin/sys/role/deleteRole", deleteRole)
+//删除某一个角色
+systemRouter.get("/admin/sys/role/deleteRole", deleteRole)
+
+//根据角色id获取对应的权限
+systemRouter.get("/admin/sys/role/getAuth",getAuth)
 
 //修改权限
 systemRouter.post("/admin/sys/role/editAuth", editAuth)

@@ -13,7 +13,7 @@ const {
   likeSomeArticle,
   updateArticleRead,
   hotArticle
-} =require('')
+} =require('../controller/article')
 
 //添加文章
 articleRouter.post("/admin/article/addArticle", addArticle)
