@@ -72,29 +72,32 @@ class SystemController{
   async userList(ctx, next) {
     const query = ctx.request.body
     const res=await SystemService.userList(query)
-
-
+  
     ctx.body = {
       success: true,
-      // data:,
-      // count:
+      data:res.data,
+      count:res.count
     }
   }
 
   async userRole(ctx, next) {
-    
-
+    const query = ctx.request.body
+    console.log(query)
+    const res=await SystemService.userEditAuth(query)
 
     ctx.body = {
-      
+      success:true
     }
   }
 
   async deleteUser(ctx, next) {
-    
+    const query = ctx.request.query
+    console.log(query)
+    const res=await SystemService.deletedSomeUser(query)
 
     ctx.body = {
-      
+      success: true,
+      data:res
     }
   }
 }

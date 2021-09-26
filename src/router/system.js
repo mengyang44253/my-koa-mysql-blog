@@ -41,7 +41,7 @@ systemRouter.post("/admin/sys/user/list", userList)
 systemRouter.post("/admin/sys/user/userRole", userRole)
 
 //删除一个用户
-systemRouter.post("/admin/sys/user/deleteUser",deleteUser)
+systemRouter.get("/admin/sys/user/deleteUser",deleteUser)
 
 
 

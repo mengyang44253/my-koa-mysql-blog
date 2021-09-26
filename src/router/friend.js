@@ -6,6 +6,7 @@ const friendRouter=new Router()
 const {
 	create,
 	list,
+	edit,
 	deleted
 }=require('../controller/friend')
 
@@ -13,7 +14,10 @@ const {
 friendRouter.post('/admin/friend/create',create)
 
 //后台友链列表
-friendRouter.get('/admin/friend/list',list)
+friendRouter.post('/admin/friend/list', list)
+
+//后台修改友链
+friendRouter.post('/admin/friend/edit',edit)
 
 //后台删除友链
 friendRouter.delete('/admin/friend/deleted',deleted)
