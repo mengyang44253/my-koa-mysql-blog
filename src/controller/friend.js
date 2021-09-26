@@ -27,7 +27,11 @@ class FriendController {
 
     const res=await FriendService.editFriend(query)
     
-    const res=await 
+
+    ctx.body = {
+      success: true,
+      data:res
+    }
   }
 
   async deleted(ctx, next) {
