@@ -7,6 +7,7 @@ const {
 	create,
 	list,
 	edit,
+	editStatus,
 	deleted
 }=require('../controller/friend')
 
@@ -17,10 +18,13 @@ friendRouter.post('/admin/friend/create',create)
 friendRouter.post('/admin/friend/list', list)
 
 //后台修改友链
-friendRouter.post('/admin/friend/edit',edit)
+friendRouter.post('/admin/friend/edit', edit)
+
+//修改友链状态
+friendRouter.post('/admin/friend/editStatus',editStatus)
 
 //后台删除友链
-friendRouter.delete('/admin/friend/deleted',deleted)
+friendRouter.get('/admin/friend/deleted',deleted)
 
 
 

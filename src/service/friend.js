@@ -1,50 +1,77 @@
-const connection = require('../config/database')
+const connection = require("../config/database");
+const dayjs = require("dayjs");
 
-
-
-class FriendService{
+class FriendService {
   async createFriend(query) {
-    const { name,img,website,status } =query
-    const statement = ``
-    
-    const [res]=await connection.execute(statement)
-
-    return res
+    const { name, img, website, status } = query;
+    const time=dayjs().unix()
+    const statement = `INSERT INTO friend (name,img,website,status,create_time,update_time) VALUES (?,?,?,?,?,?)`;
+    const [res] = await connection.execute(statement, [
+      name,
+      img,
+      website,
+      status,
+      time,
+      time
+    ]);
+    console.log(res);
+    return res;
   }
 
   async friendList(query) {
-    const { start_time,end_time,start,limit,pagination,name }=query
-    let statement = ``
-    
-
-    const [res]=await connection.execute(statement)
-
-
-    return {
-
+    try {
+      const { start_time, end_time, start, limit, pagination, name } = query;
+      let statement = `SELECT SQL_CALC_FOUND_ROWS id,name,img,website,status FROM friend WHERE create_time BETWEEN ${
+        start_time || 0
+      } AND ${end_time || dayjs().unix()}`;
+      if (name) {
+        statement += ` AND name LIKE '%${name}%'`;
+      }
+      statement += ` ORDER BY create_time DESC`;
+      if (pagination === "1") {
+        statement += ` LIMIT ${start * limit},${limit}`;
+      }
+      const [res] = await connection.execute(statement);
+      let countSql = `SELECT FOUND_ROWS() count`;
+      const [countRes] = await connection.execute(countSql);
+      return {
+        data: res,
+        count: countRes[0].count,
+      };
+    } catch (error) {
+      console.log(error);
     }
   }
 
   async editFriend(query) {
-    const { id, name, img, website, status } = query
-    
-    const statement = ``
-    
-    const [res] = await connection.execute(statement)
-    
-    return res
+    const { id, name, img, website, status } = query;
+    const statement = `UPDATE friend SET status=${status},name='${name}',img='${img}',website='${website}' WHERE id=${id}`;
+    const [res] = await connection.execute(statement);
+    console.log(res);
+    return res;
+  }
+
+  async editStatus(query) {
+    const { id, status } = query;
+    const statement = `UPDATE friend SET status=${status} WHERE id=${id}`;
+    const [res] = await connection.execute(statement);
+    console.log(res);
+    return res;
   }
 
   async deletedFriend(query) {
-    const { id } = query
-    const statement = ``
-    const [res] = await connection.execute(statement)
+    try {
+      console.log(query)
+      const { id } = query;
+    const statement = `DELETE FROM friend WHERE id=${id}`;
+    const [res] = await connection.execute(statement);
+
+    return res;
+    } catch (error) {
+      console.log(error)
+    }
     
-    return res
   }
-
-
 }
 
-
-module.exports = new FriendService()
+module.exports = new FriendService();
