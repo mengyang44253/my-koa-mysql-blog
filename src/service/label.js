@@ -8,7 +8,6 @@ class LabelService {
     let time = dayjs().unix();
     const statement = `INSERT INTO label (type,name,create_time) VALUES (?,?,?)`;
     const [res] = await connection.execute(statement, [type, name, time]);
-    console.log(res);
     return res;
   }
   async checkTagNameIsExist(query) {
@@ -45,11 +44,8 @@ class LabelService {
   async deletedSomeTag(query) {
     try {
       const { id } = query;
-      console.log(id);
       const statement = `DELETE FROM label WHERE id=${id}`;
-      console.log(statement);
       const [res] = await connection.execute(statement);
-      console.log(res);
       return res;
     } catch (error) {
       console.log(error);
@@ -58,11 +54,8 @@ class LabelService {
   async checkDirectoryName(query) {
     try {
       const { name } = query;
-      console.log(name);
       const statement = `SELECT * FROM label WHERE name=? AND type =2`;
-      console.log(statement);
       const [res] = await connection.execute(statement, [name]);
-      console.log(res);
       return res;
     } catch (error) {
       console.log(error);
@@ -106,6 +99,17 @@ class LabelService {
       data: res,
       count: countRes[0].count,
     };
+  }
+
+  async deletedSomeDirectory(query) {
+    try {
+      const { id } = query;
+      const statement = `DELETE FROM label WHERE id=${id}`;
+      const [res] = await connection.execute(statement);
+      return res;
+    } catch (error) {
+      console.log(error);
+    }
   }
 }
 

@@ -74,7 +74,13 @@ class LabelController {
     };
   }
   async deletedDirectory(ctx, next) {
-    ctx.body = {};
+    const query = ctx.request.query
+    console.log(query)
+    const res=await LabelService.deletedSomeDirectory(query)
+    ctx.body = {
+      success: true,
+      data:res
+    };
   }
 
   async hotTag(ctx, next) {
