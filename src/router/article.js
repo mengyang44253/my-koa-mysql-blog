@@ -13,10 +13,14 @@ const {
   likeSomeArticle,
   updateArticleRead,
   hotArticle
-} =require('../controller/article')
+} = require('../controller/article')
+
+const {
+  verifyLabelExists
+} =require('../middleware/article') 
 
 //添加文章
-articleRouter.post("/admin/article/addArticle", addArticle)
+articleRouter.post("/admin/article/addArticle",verifyLabelExists, addArticle)
 
 //修改文章
 articleRouter.post("/admin/article/editArticle", editArticle)
@@ -31,7 +35,7 @@ articleRouter.post("/admin/article/articleStatus",articleStatus)
 articleRouter.get("/admin/article/getDetailById", getDetailById)
 
 //删除某一篇文章
-articleRouter.post("/admin/article/deleteArticle", deleteArticle)
+articleRouter.get("/admin/article/deleteArticle", deleteArticle)
 
 //前台点赞某一篇文章
 articleRouter.post("/blog/article/likeSomeArticle", likeSomeArticle)

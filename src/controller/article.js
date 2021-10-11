@@ -1,11 +1,15 @@
-
+const ArticleService=require("../service/article")
 
 class ArticleController{
   async addArticle(ctx, next) {
+    const query = ctx.request.body
+    console.log(ctx.tags)
+    const res = await ArticleService.addArticle(query,tags)
     
 
     ctx.body = {
-      
+      success: true,
+      data:res
     }
   }
 

@@ -83,7 +83,7 @@ class LabelService {
   }
   async getDirectoryList(query) {
     const { pagination, name, start, limit, start_time, end_time } = query;
-    let statement = `SELECT SQL_CALC_FOUND_ROWS id,name,create_time,group_count FROM label WHERE type =2 AND create_time BETWEEN ${
+    let statement = `SELECT SQL_CALC_FOUND_ROWS id,parent_id,name,create_time,group_count FROM label WHERE type =2 AND create_time BETWEEN ${
       start_time || 0
     } AND ${end_time || dayjs().unix()}`;
     if (name) {
