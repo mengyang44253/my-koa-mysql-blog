@@ -37,7 +37,6 @@ class LabelService {
         count: countRes[0].count,
       };
     } catch (error) {
-      console.log(error);
     }
   }
 
@@ -48,7 +47,6 @@ class LabelService {
       const [res] = await connection.execute(statement);
       return res;
     } catch (error) {
-      console.log(error);
     }
   }
   async checkDirectoryName(query) {
@@ -58,7 +56,6 @@ class LabelService {
       const [res] = await connection.execute(statement, [name]);
       return res;
     } catch (error) {
-      console.log(error);
     }
   }
 
@@ -78,7 +75,6 @@ class LabelService {
       ]);
       return res;
     } catch (error) {
-      console.log(error)
     }
   }
   async getDirectoryList(query) {
@@ -108,7 +104,6 @@ class LabelService {
       const [res] = await connection.execute(statement);
       return res;
     } catch (error) {
-      console.log(error);
     }
   }
 }

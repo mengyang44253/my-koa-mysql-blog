@@ -8,6 +8,7 @@ const {
   editArticle,
   articleList,
   articleStatus,
+  commentStatus,
   getDetailById,
   deleteArticle,
   likeSomeArticle,
@@ -16,20 +17,24 @@ const {
 } = require('../controller/article')
 
 const {
-  verifyLabelExists
+  verifyLabelExists,
+  verifyDeleteArticleLabel
 } =require('../middleware/article') 
 
 //添加文章
 articleRouter.post("/admin/article/addArticle",verifyLabelExists, addArticle)
 
 //修改文章
-articleRouter.post("/admin/article/editArticle", editArticle)
+articleRouter.post("/admin/article/editArticle",verifyLabelExists, editArticle)
 
 //文章列表
 articleRouter.post("/admin/article/articleList", articleList)
 
 //修改文章的状态
-articleRouter.post("/admin/article/articleStatus",articleStatus)
+articleRouter.post("/admin/article/articleStatus", articleStatus)
+
+//文章评论状态
+articleRouter.post("/admin/article/commentStatus",commentStatus)
 
 //根据文章id获取文章详情
 articleRouter.get("/admin/article/getDetailById", getDetailById)
